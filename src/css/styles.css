@@ -48,6 +48,11 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,A
 .badge.docente{background:rgba(96,165,250,0.08);color:var(--accent-2)}
 .badge.estudiante{background:rgba(16,185,129,0.08);color:var(--success)}
 
+/* Estado de calificación */
+.status{display:inline-block;padding:0.18rem 0.6rem;border-radius:999px;font-size:0.8rem;font-weight:600}
+.status.pass{background:rgba(16,185,129,0.14);color:var(--success)}
+.status.fail{background:rgba(239,68,68,0.12);color:var(--danger)}
+
 input,select,button{padding:0.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
 input::placeholder{color:rgba(255,255,255,0.35)}
 button{cursor:pointer}
@@ -57,6 +62,11 @@ button{cursor:pointer}
 .posts li{border-radius:8px;padding:0.75rem;margin-bottom:0.5rem;background:linear-gradient(180deg,#05121b,#071824);border:1px solid rgba(255,255,255,0.03)}
 
 .help{margin-top:0.5rem;color:var(--muted)}
+
+.login-hint{background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.25);border-radius:10px;padding:1rem;margin-bottom:1rem;color:var(--text)}
+.login-hint strong{display:block;margin-bottom:0.5rem;color:var(--accent-2)}
+.login-hint ul{margin:0.5rem 0 0 1rem;padding:0;color:var(--text)}
+.login-hint code{background:rgba(255,255,255,0.08);padding:0.15rem 0.3rem;border-radius:4px;font-size:0.95rem}
 
 .site-footer{padding:1rem;text-align:center;color:var(--muted);margin-top:2rem}
 
@@ -71,7 +81,7 @@ button{cursor:pointer}
 
 /* Ensure topbar sits above toasts so its buttons stay clickable */
 .topbar{position:relative;z-index:1200}
-.toast{padding:0.75rem 1rem;border-radius:8px;color:white;min-width:220px;box-shadow:0 6px 18px rgba(2,6,23,0.6);opacity:0;transform:translateY(-6px);animation:toastIn .3s forwards}
+.toast{padding:0.75rem 1rem;border-radius:8px;color:white;min-width:220px;box-shadow:0 6px 18px rgba(2,6,23,0.6);opacity:0;transform:translateY(-6px);animation:toastIn .3s forwards;transition:opacity .32s ease, transform .32s ease}
 .toast.info{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
 .toast.success{background:var(--success)}
 .toast.error{background:var(--danger)}

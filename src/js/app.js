@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     cache(){
       this.loginSection = document.getElementById('loginSection')
       this.dashboard = document.getElementById('dashboard')
-      this.welcome = document.getElementById('welcome')
       this.sessionInfo = document.getElementById('sessionInfo')
       this.logoutBtn = document.getElementById('logoutBtn')
 
@@ -34,6 +33,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       this.countStudents = document.getElementById('countStudents')
       this.countPosts = document.getElementById('countPosts')
       this.toastContainer = document.getElementById('toastContainer')
+      this.studentAverage = document.getElementById('studentAverage')
     },
     bind(){
       this.loginForm.addEventListener('submit',e=>this.handleLogin(e))
@@ -62,7 +62,6 @@ document.addEventListener('DOMContentLoaded',()=>{
         return
       }
       this.showDashboard()
-      document.getElementById('welcome')?.remove?.()
       this.sessionInfo.textContent = `${session.username} — ${session.role}`
       this.logoutBtn.classList.remove('hidden')
       this.userManagement.classList.toggle('hidden', session.role !== 'admin')
@@ -111,12 +110,13 @@ document.addEventListener('DOMContentLoaded',()=>{
       const studentId = Number(this.gradeStudent.value)
       const subject = document.getElementById('gradeSubject').value.trim()
       const value = document.getElementById('gradeValue').value.trim()
+      const period = document.getElementById('gradePeriod')?.value || 'Periodo'
       if(!subject||!value){this.showToast('Completa asignatura y nota','error');return}
       const n = Number(value)
-      if(Number.isNaN(n) || n<0 || n>10){this.showToast('La nota debe ser un número entre 0 y 10','error');return}
+      if(Number.isNaN(n) || n<0 || n>100){this.showToast('La nota debe ser un número entre 0 y 100','error');return}
       const grades = JSON.parse(localStorage.getItem('grades')||'[]')
       const session = Auth.getSession()
-      const grade = {id:Date.now(),studentId,subject,grade:n,teacherId:session.id,date:new Date().toISOString()}
+      const grade = {id:Date.now(),studentId,subject,grade:n,teacherId:session.id,date:new Date().toISOString(),period}
       grades.push(grade)
       localStorage.setItem('grades',JSON.stringify(grades))
       this.addGradeForm.reset()
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         const student = users.find(u=>u.id===g.studentId)
         const teacher = users.find(u=>u.id===g.teacherId)
         const tr = document.createElement('tr')
-        tr.innerHTML = `<td>${student?student.name:'-'}</td><td>${g.subject}</td><td>${g.grade}</td><td>${teacher?teacher.name:'-'}</td><td>${new Date(g.date).toLocaleString()}</td>`
+        tr.innerHTML = `<td>${student?student.name:'-'}</td><td>${g.subject}</td><td>${g.grade}</td><td>${g.period||'-'}</td><td>${teacher?teacher.name:'-'}</td><td>${new Date(g.date).toLocaleString()}</td>`
         this.gradesTableBody.appendChild(tr)
       })
     },
@@ -182,12 +182,21 @@ document.addEventListener('DOMContentLoaded',()=>{
       if(!session || session.role !== 'estudiante') return
       const grades = JSON.parse(localStorage.getItem('grades')||'[]').filter(g=>g.studentId===session.id)
       const users = Auth.getUsers()
+      if(grades.length===0){
+        this.studentAverage.textContent = '-' 
+        return
+      }
+      let sum = 0
       grades.forEach(g=>{
+        sum += Number(g.grade)
         const teacher = users.find(u=>u.id===g.teacherId)
+        const status = Number(g.grade) >= 70 ? `<span class="status pass">Aprobado</span>` : `<span class="status fail">Reprobado</span>`
         const tr = document.createElement('tr')
-        tr.innerHTML = `<td>${g.subject}</td><td>${g.grade}</td><td>${teacher?teacher.name:'-'}</td><td>${new Date(g.date).toLocaleDateString()}</td>`
+        tr.innerHTML = `<td>${g.subject}</td><td>${g.grade}</td><td>${g.period||'-'}</td><td>${status}</td><td>${teacher?teacher.name:'-'}</td><td>${new Date(g.date).toLocaleDateString()}</td>`
         this.myGradesTable.appendChild(tr)
       })
+      const avg = sum/grades.length
+      this.studentAverage.textContent = `${avg.toFixed(1)} %`
     },
     renderPosts(){
       const posts = JSON.parse(localStorage.getItem('posts')||'[]')
@@ -210,8 +219,18 @@ document.addEventListener('DOMContentLoaded',()=>{
       const el = document.createElement('div')
       el.className = `toast ${type}`
       el.textContent = message
+      // ensure starting state
+      el.style.opacity = '0'
+      el.style.transform = 'translateY(-6px)'
       this.toastContainer.appendChild(el)
-      setTimeout(()=>{el.style.opacity='0';el.addEventListener('transitionend',()=>el.remove())},timeout)
+      // trigger entrance (matching CSS animation/transition)
+      requestAnimationFrame(()=>{el.style.opacity='1';el.style.transform='none'})
+      // hide after timeout with fade-out, then remove
+      setTimeout(()=>{
+        el.style.opacity = '0'
+        el.style.transform = 'translateY(-6px)'
+        setTimeout(()=>{ if(el && el.parentNode) el.parentNode.removeChild(el) }, 320)
+      }, timeout)
     }
   }
 

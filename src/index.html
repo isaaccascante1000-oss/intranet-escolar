@@ -1,4 +1,4 @@
-<!doctype html>
+    <!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
@@ -31,6 +31,15 @@
 
       <section id="loginSection" class="panel">
       <h2>Iniciar sesión</h2>
+      <div class="login-hint">
+        <strong>Credenciales de prueba</strong>
+        <p>Ingresa uno de los siguientes pares en el formulario:</p>
+        <ul>
+          <li><strong>Admin:</strong> usuario <code>admin</code> | contraseña <code>admin</code></li>
+          <li><strong>Docente:</strong> usuario <code>docente</code> | contraseña <code>docente</code></li>
+          <li><strong>Estudiante:</strong> usuario <code>estudiante</code> | contraseña <code>estudiante</code></li>
+        </ul>
+      </div>
       <form id="loginForm" aria-label="Formulario de inicio de sesión">
         <label>Usuario
           <input id="username" name="username" required>
@@ -40,14 +49,6 @@
         </label>
         <button type="submit">Entrar</button>
       </form>
-      <div class="help">
-        <strong>Credenciales de prueba:</strong>
-        <ul>
-          <li>admin / admin</li>
-          <li>docente / docente</li>
-          <li>estudiante / estudiante</li>
-        </ul>
-      </div>
     </section>
 
     <section id="dashboard" class="panel hidden">
@@ -92,19 +93,31 @@
         <form id="addGradeForm" class="inline-form">
           <select id="gradeStudent"></select>
           <input id="gradeSubject" placeholder="Asignatura" required>
-          <input id="gradeValue" placeholder="Nota" required>
+          <input id="gradeValue" placeholder="Nota (0-100)" required>
+          <select id="gradePeriod">
+            <option value="1er Trimestre">1er Trimestre</option>
+            <option value="2do Trimestre">2do Trimestre</option>
+            <option value="3er Trimestre">3er Trimestre</option>
+            <option value="Final">Final</option>
+          </select>
           <button type="submit">Registrar</button>
         </form>
         <table id="gradesTable" class="table">
-          <thead><tr><th>Alumno</th><th>Asignatura</th><th>Nota</th><th>Profesor</th><th>Fecha</th></tr></thead>
+          <thead><tr><th>Alumno</th><th>Asignatura</th><th>Nota</th><th>Periodo</th><th>Profesor</th><th>Fecha</th></tr></thead>
           <tbody></tbody>
         </table>
       </section>
 
       <section id="studentGrades" class="subpanel hidden">
         <h3>Mis calificaciones</h3>
+        <div class="student-stats">
+          <div class="card" id="averageCard">
+            <h4>Promedio General</h4>
+            <div class="card-value" id="studentAverage">—</div>
+          </div>
+        </div>
         <table id="myGradesTable" class="table">
-          <thead><tr><th>Asignatura</th><th>Nota</th><th>Profesor</th><th>Fecha</th></tr></thead>
+          <thead><tr><th>Materia</th><th>Nota</th><th>Periodo</th><th>Estado</th><th>Profesor</th><th>Fecha</th></tr></thead>
           <tbody></tbody>
         </table>
       </section>

@@ -8,16 +8,16 @@ El proyecto vive en una arquitectura *Frontend Vanilla* (HTML5, CSS3, JavaScript
 ## 2. Requerimientos
 
 ### Requerimientos Funcionales
-- [x] **Autenticación por roles:** Sistema de inicio de sesión que identifique si el usuario es `admin`, `docente` o `estudiante`.
-- [x] **Gestión de usuarios:** Módulo exclusivo para administración donde se pueda simular el alta, baja y edición de personas.
-- [x] **Módulo académico:** Interfaz para que los docentes registren calificaciones o asistencia, y los estudiantes las consulten.
-- [x] **Tablón de comunicados:** Espacio público interno para publicar y leer circulares u avisos oficiales del colegio.
-- [x] **Consulta según rol:** Restricción visual de componentes según el tipo de usuario autenticado.
+- [ ] **Autenticación por roles:** Sistema de inicio de sesión que identifique si el usuario es `admin`, `docente` o `estudiante`.
+- [ ] **Gestión de usuarios:** Módulo exclusivo para administración donde se pueda simular el alta, baja y edición de personas.
+- [ ] **Módulo académico:** Interfaz para que los docentes registren calificaciones o asistencia, y los estudiantes las consulten.
+- [ ] **Tablón de comunicados:** Espacio público interno para publicar y leer circulares u avisos oficiales del colegio.
+- [ ] **Consulta según rol:** Restricción visual de componentes según el tipo de usuario autenticado.
 
 ### Requerimientos No Funcionales
-- [x] **Interfaz accesible:** Alto contraste, navegación limpia y etiquetas semánticas HTML5.
-- [x] **Protección de datos:** No exponer información personal innecesaria o sensible.
-- [x] **Control de versiones:** Commits frecuentes y significativos usando sintaxis Conventional Commits.
+- [ ] **Interfaz accesible:** Alto contraste, navegación limpia y etiquetas semánticas HTML5.
+- [ ] **Protección de datos:** No exponer información personal innecesaria o sensible.
+- [ ] **Control de versiones:** Commits frecuentes y significativos usando sintaxis Conventional Commits.
 
 ## 3. Reglas
 - **Sintaxis de código:** Usar JavaScript moderno (ES6+), evitando var y utilizando `const` o `let`.
