@@ -1,0 +1,24 @@
+:root{
+  --bg:#ffffff;
+  --text:#111827;
+  --accent:#0b5fff;
+  --muted:#6b7280;
+}
+*{box-sizing:border-box}
+body{font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text);margin:0;padding:0}
+.site-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;background:#0b1220;color:white}
+.site-header h1{margin:0;font-size:1.125rem}
+.panel{padding:1rem;max-width:1000px;margin:1rem auto}
+.hidden{display:none}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.table{width:100%;border-collapse:collapse;margin-top:0.5rem}
+.table th,.table td{border:1px solid #e5e7eb;padding:0.5rem;text-align:left}
+.inline-form{display:flex;gap:0.5rem;flex-wrap:wrap}
+input,select,button{padding:0.5rem;border:1px solid #d1d5db;border-radius:4px}
+button{background:var(--accent);color:white;border:none;cursor:pointer}
+.posts{list-style:none;padding:0;margin:0}
+.posts li{border:1px solid #e5e7eb;padding:0.75rem;margin-bottom:0.5rem;border-radius:6px}
+.session-info{font-size:0.875rem}
+.help{margin-top:0.5rem;color:var(--muted)}
+.subpanel{margin-top:1rem;padding:0.75rem;border:1px dashed #e5e7eb;border-radius:6px}
+.site-footer{padding:1rem;text-align:center;color:var(--muted);border-top:1px solid #e5e7eb;margin-top:2rem}
