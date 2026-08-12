@@ -1,4 +1,4 @@
-    <!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
@@ -8,16 +8,16 @@
 </head>
 <body>
   <div class="app-container">
-    <aside class="sidebar" aria-label="Navegación principal">
+    <aside class="sidebar" id="mainSidebar" aria-label="Navegación principal">
       <div class="brand">
         <h2>Intranet</h2>
       </div>
       <nav>
         <ul>
-          <li><button class="nav-btn active" data-target="dashboard">Dashboard</button></li>
-          <li><button class="nav-btn" data-target="userManagement">Usuarios</button></li>
-          <li><button class="nav-btn" data-target="gradesSection">Calificaciones</button></li>
-          <li><button class="nav-btn" data-target="studentGrades">Mis calificaciones</button></li>
+          <li><button class="nav-btn active" data-target="dashboardOverview">Dashboard</button></li>
+          <li id="nav-users"><button class="nav-btn" data-target="userManagement">Usuarios</button></li>
+          <li id="nav-grades-add"><button class="nav-btn" data-target="gradesSection">Calificaciones</button></li>
+          <li id="nav-grades-view"><button class="nav-btn" data-target="studentGrades">Mis calificaciones</button></li>
           <li><button class="nav-btn" data-target="boardSection">Tablón</button></li>
         </ul>
       </nav>
@@ -26,119 +26,125 @@
     <main class="main-content">
       <header class="topbar">
         <h1 class="site-title">Intranet Escolar</h1>
-        <div class="session-block"><span id="sessionInfo" class="session-info"></span> <button id="logoutBtn" class="btn-ghost hidden">Cerrar sesión</button></div>
+        <div class="session-block">
+          <span id="sessionInfo" class="session-info"></span> 
+          <button id="logoutBtn" class="btn-ghost hidden">Cerrar sesión</button>
+        </div>
       </header>
 
+      <!-- Panel de Login -->
       <section id="loginSection" class="panel">
-      <h2>Iniciar sesión</h2>
-      <div class="login-hint">
-        <strong>Credenciales de prueba</strong>
-        <p>Ingresa uno de los siguientes pares en el formulario:</p>
-        <ul>
-          <li><strong>Admin:</strong> usuario <code>admin</code> | contraseña <code>admin</code></li>
-          <li><strong>Docente:</strong> usuario <code>docente</code> | contraseña <code>docente</code></li>
-          <li><strong>Estudiante:</strong> usuario <code>estudiante</code> | contraseña <code>estudiante</code></li>
-        </ul>
-      </div>
-      <form id="loginForm" aria-label="Formulario de inicio de sesión">
-        <label>Usuario
-          <input id="username" name="username" required>
-        </label>
-        <label>Contraseña
-          <input id="password" name="password" type="password" required>
-        </label>
-        <button type="submit">Entrar</button>
-      </form>
-      <div class="help">
-        <strong>Credenciales de prueba:</strong>
-        <ul>
-          <li>admin / admin</li>
-          <li>docente / docente</li>
-          <li>estudiante / estudiante</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="dashboard" class="panel hidden">
-      <div class="dashboard-grid">
-        <div class="cards">
-          <div class="card">
-            <h4>Usuarios</h4>
-            <div class="card-value" id="countUsers">—</div>
-          </div>
-          <div class="card">
-            <h4>Alumnos</h4>
-            <div class="card-value" id="countStudents">—</div>
-          </div>
-          <div class="card">
-            <h4>Comunicados</h4>
-            <div class="card-value" id="countPosts">—</div>
-          </div>
+        <h2>Iniciar sesión</h2>
+        <div class="login-hint">
+          <strong>Credenciales de prueba</strong>
+          <p>Ingresa uno de los siguientes pares en el formulario:</p>
+          <ul>
+            <li><strong>Admin:</strong> usuario <code>admin</code> | contraseña <code>admin</code></li>
+            <li><strong>Docente:</strong> usuario <code>docente</code> | contraseña <code>docente</code></li>
+            <li><strong>Estudiante:</strong> usuario <code>estudiante</code> | contraseña <code>estudiante</code></li>
+          </ul>
         </div>
-      </div>
-
-      <section id="userManagement" class="subpanel hidden">
-        <h3>Gestión de usuarios</h3>
-        <form id="addUserForm">
-          <input id="newName" placeholder="Nombre" required>
-          <input id="newUsername" placeholder="Usuario" required>
-          <select id="newRole">
-            <option value="admin">admin</option>
-            <option value="docente">docente</option>
-            <option value="estudiante">estudiante</option>
-          </select>
-          <input id="newPassword" placeholder="Contraseña" required>
-          <button type="submit">Agregar</button>
+        <form id="loginForm" aria-label="Formulario de inicio de sesión">
+          <label>Usuario
+            <input id="username" name="username" required>
+          </label>
+          <label>Contraseña
+            <input id="password" name="password" type="password" required>
+          </label>
+          <button type="submit">Entrar</button>
         </form>
-        <table id="usersTable" class="table" aria-label="Lista de usuarios">
-          <thead><tr><th>Nombre</th><th>Usuario</th><th>Rol</th><th>Acciones</th></tr></thead>
-          <tbody></tbody>
-        </table>
       </section>
 
-      <section id="gradesSection" class="subpanel hidden">
-        <h3>Calificaciones</h3>
-        <form id="addGradeForm" class="inline-form">
-          <select id="gradeStudent"></select>
-          <input id="gradeSubject" placeholder="Asignatura" required>
-          <input id="gradeValue" placeholder="Nota (0-100)" required>
-          <select id="gradePeriod">
-            <option value="1er Trimestre">1er Trimestre</option>
-            <option value="2do Trimestre">2do Trimestre</option>
-            <option value="3er Trimestre">3er Trimestre</option>
-            <option value="Final">Final</option>
-          </select>
-          <button type="submit">Registrar</button>
-        </form>
-        <table id="gradesTable" class="table">
-          <thead><tr><th>Alumno</th><th>Asignatura</th><th>Nota</th><th>Periodo</th><th>Profesor</th><th>Fecha</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </section>
-
-      <section id="studentGrades" class="subpanel hidden">
-        <h3>Mis calificaciones</h3>
-        <div class="student-stats">
-          <div class="card" id="averageCard">
-            <h4>Promedio General</h4>
-            <div class="card-value" id="studentAverage">—</div>
+      <!-- Contenedor Principal de la App (Visible al autenticarse) -->
+      <section id="appViews" class="panel hidden">
+        
+        <!-- Vista 1: Resumen (Dashboard) -->
+        <section id="dashboardOverview" class="subpanel">
+          <div class="dashboard-grid">
+            <div class="cards">
+              <div class="card">
+                <h4>Usuarios</h4>
+                <div class="card-value" id="countUsers">—</div>
+              </div>
+              <div class="card">
+                <h4>Alumnos</h4>
+                <div class="card-value" id="countStudents">—</div>
+              </div>
+              <div class="card">
+                <h4>Comunicados</h4>
+                <div class="card-value" id="countPosts">—</div>
+              </div>
+            </div>
           </div>
-        </div>
-        <table id="myGradesTable" class="table">
-          <thead><tr><th>Materia</th><th>Nota</th><th>Periodo</th><th>Estado</th><th>Profesor</th><th>Fecha</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </section>
+        </section>
 
-      <section id="boardSection" class="subpanel">
-        <h3>Tablón de comunicados</h3>
-        <form id="postForm" class="inline-form hidden">
-          <input id="postTitle" placeholder="Título" required>
-          <input id="postContent" placeholder="Contenido" required>
-          <button type="submit">Publicar</button>
-        </form>
-        <ul id="postsList" class="posts"></ul>
-      </section>
+        <!-- Vista 2: Gestión de Usuarios -->
+        <section id="userManagement" class="subpanel hidden">
+          <h3>Gestión de usuarios</h3>
+          <form id="addUserForm" class="inline-form">
+            <input id="newName" placeholder="Nombre completo" required>
+            <input id="newUsername" placeholder="Nombre de usuario" required>
+            <select id="newRole">
+              <option value="admin">Admin</option>
+              <option value="docente">Docente</option>
+              <option value="estudiante">Estudiante</option>
+            </select>
+            <input id="newPassword" placeholder="Contraseña" required>
+            <button type="submit">Agregar</button>
+          </form>
+          <table id="usersTable" class="table" aria-label="Lista de usuarios">
+            <thead><tr><th>Nombre</th><th>Usuario</th><th>Rol</th><th>Acciones</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </section>
+
+        <!-- Vista 3: Registro de Calificaciones (Docentes/Admin) -->
+        <section id="gradesSection" class="subpanel hidden">
+          <h3>Registro de Calificaciones</h3>
+          <form id="addGradeForm" class="inline-form">
+            <select id="gradeStudent" required></select>
+            <input id="gradeSubject" placeholder="Asignatura" required>
+            <input id="gradeValue" type="number" min="0" max="100" placeholder="Nota (0-100)" required>
+            <select id="gradePeriod">
+              <option value="1er Trimestre">1er Trimestre</option>
+              <option value="2do Trimestre">2do Trimestre</option>
+              <option value="3er Trimestre">3er Trimestre</option>
+              <option value="Final">Final</option>
+            </select>
+            <button type="submit">Registrar Nota</button>
+          </form>
+          <table id="gradesTable" class="table">
+            <thead><tr><th>Alumno</th><th>Asignatura</th><th>Nota</th><th>Periodo</th><th>Profesor</th><th>Fecha</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </section>
+
+        <!-- Vista 4: Mis Calificaciones (Estudiantes) -->
+        <section id="studentGrades" class="subpanel hidden">
+          <h3>Mis calificaciones</h3>
+          <div class="student-stats">
+            <div class="card" id="averageCard">
+              <h4>Promedio General</h4>
+              <div class="card-value" id="studentAverage">—</div>
+            </div>
+          </div>
+          <table id="myGradesTable" class="table">
+            <thead><tr><th>Materia</th><th>Nota</th><th>Periodo</th><th>Estado</th><th>Profesor</th><th>Fecha</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </section>
+
+        <!-- Vista 5: Tablón de Anuncios -->
+        <section id="boardSection" class="subpanel hidden">
+          <h3>Tablón de comunicados</h3>
+          <form id="postForm" class="inline-form hidden">
+            <input id="postTitle" placeholder="Título del anuncio" required>
+            <input id="postContent" placeholder="Contenido..." required>
+            <button type="submit">Publicar</button>
+          </form>
+          <ul id="postsList" class="posts"></ul>
+        </section>
+        
       </section>
 
       <footer class="site-footer">Prototipo Intranet Escolar — Datos de prueba</footer>

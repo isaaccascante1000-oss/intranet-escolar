@@ -11,10 +11,13 @@
   --danger:#ef4444;
   --glass: rgba(255,255,255,0.03);
 }
+
 *{box-sizing:border-box}
 html,body{height:100%}
-body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:linear-gradient(180deg,#071020 0%, #0b1226 100%);color:var(--text);margin:0}
-.app-container{display:flex;min-height:100vh}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:linear-gradient(180deg,#071020 0%, #0b1226 100%);color:var(--text);margin:0; overflow-x: hidden;}
+.app-container{display:flex;min-height:100vh;flex-direction:column}
+
+/* Sidebar rediseñado para soportar móvil y desktop */
 .sidebar{width:220px;background:linear-gradient(180deg,var(--panel),#071022);padding:1rem;border-right:1px solid rgba(255,255,255,0.03)}
 .brand{color:var(--accent-2);font-weight:700;margin-bottom:1rem}
 .sidebar nav ul{list-style:none;padding:0;margin:0}
@@ -22,21 +25,25 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,A
 .nav-btn{width:100%;text-align:left;padding:0.6rem 0.75rem;background:transparent;border:none;color:var(--muted);border-radius:6px;cursor:pointer}
 .nav-btn:hover{background:var(--glass);color:var(--text)}
 .nav-btn.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;box-shadow:0 4px 14px rgba(37,99,235,0.18)}
+
 .main-content{flex:1;padding:1rem 1.5rem;display:flex;flex-direction:column}
-.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+
+/* Topbar unificada */
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;position:relative;z-index:1200}
 .site-title{margin:0;font-size:1.1rem}
 .session-block{color:var(--muted);display:flex;gap:0.5rem;align-items:center}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:0.4rem 0.6rem;border-radius:6px}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer}
+.btn-ghost:hover{background:rgba(255,255,255,0.08);}
 
 .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:1rem;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6);}
-.hidden{display:none}
+.hidden{display:none !important;}
 
 .dashboard-grid .cards{display:flex;gap:1rem}
 .card{flex:1;padding:1rem;border-radius:10px;background:linear-gradient(180deg,#081223, #071827);box-shadow:0 6px 18px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
 .card h4{margin:0;color:var(--muted);font-size:0.9rem}
 .card-value{margin-top:0.5rem;font-size:1.6rem;font-weight:700}
 
-.subpanel{margin-top:1rem;padding:1rem;border-radius:10px;background:linear-gradient(180deg,#071427,#06121a);border:1px solid rgba(255,255,255,0.03)}
+.subpanel{margin-top:1rem;padding:1rem;border-radius:10px;background:linear-gradient(180deg,#071427,#06121a);border:1px solid rgba(255,255,255,0.03);animation:fadeIn .3s ease}
 
 .table{width:100%;border-collapse:collapse;margin-top:0.75rem}
 .table th,.table td{padding:0.75rem;text-align:left;border-bottom:1px solid rgba(255,255,255,0.03)}
@@ -47,8 +54,8 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,A
 .badge.admin{background:rgba(37,99,235,0.12);color:var(--accent)}
 .badge.docente{background:rgba(96,165,250,0.08);color:var(--accent-2)}
 .badge.estudiante{background:rgba(16,185,129,0.08);color:var(--success)}
+.btn-del {background:rgba(239,68,68,0.12);color:var(--danger);border:none;padding:0.3rem 0.6rem;border-radius:4px;}
 
-/* Estado de calificación */
 .status{display:inline-block;padding:0.18rem 0.6rem;border-radius:999px;font-size:0.8rem;font-weight:600}
 .status.pass{background:rgba(16,185,129,0.14);color:var(--success)}
 .status.fail{background:rgba(239,68,68,0.12);color:var(--danger)}
@@ -60,8 +67,7 @@ button{cursor:pointer}
 
 .posts{list-style:none;padding:0;margin:0}
 .posts li{border-radius:8px;padding:0.75rem;margin-bottom:0.5rem;background:linear-gradient(180deg,#05121b,#071824);border:1px solid rgba(255,255,255,0.03)}
-
-.help{margin-top:0.5rem;color:var(--muted)}
+.posts .meta{font-size:0.8rem;color:var(--muted);margin:0.25rem 0 0.5rem;}
 
 .login-hint{background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.25);border-radius:10px;padding:1rem;margin-bottom:1rem;color:var(--text)}
 .login-hint strong{display:block;margin-bottom:0.5rem;color:var(--accent-2)}
@@ -70,30 +76,40 @@ button{cursor:pointer}
 
 .site-footer{padding:1rem;text-align:center;color:var(--muted);margin-top:2rem}
 
-.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
-.site-title{margin:0;font-size:1.1rem}
-.session-block{color:var(--muted);display:flex;gap:0.5rem;align-items:center}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:0.4rem 0.6rem;border-radius:6px}
-
-/* Toasts */
-#toastContainer{position:fixed;right:1rem;top:72px;z-index:1000;display:flex;flex-direction:column;gap:0.5rem;pointer-events:auto}
-#toastContainer .toast{pointer-events:auto}
-
-/* Ensure topbar sits above toasts so its buttons stay clickable */
-.topbar{position:relative;z-index:1200}
-.toast{padding:0.75rem 1rem;border-radius:8px;color:white;min-width:220px;box-shadow:0 6px 18px rgba(2,6,23,0.6);opacity:0;transform:translateY(-6px);animation:toastIn .3s forwards;transition:opacity .32s ease, transform .32s ease}
+/* Toasts refinados puramente con CSS */
+#toastContainer{position:fixed;right:1rem;top:72px;z-index:1000;display:flex;flex-direction:column;gap:0.5rem;pointer-events:none}
+.toast{padding:0.75rem 1rem;border-radius:8px;color:white;min-width:220px;box-shadow:0 6px 18px rgba(2,6,23,0.6);animation:toastIn .4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;pointer-events:auto}
 .toast.info{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
 .toast.success{background:var(--success)}
 .toast.error{background:var(--danger)}
-@keyframes toastIn{to{opacity:1;transform:none}}
+.toast-exit{animation:toastOut .3s ease forwards}
 
-/* Animations */
-.fade-in{animation:fadeIn .36s ease both}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes toastIn{
+  from{opacity:0;transform:translateY(-15px) scale(0.95)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes toastOut{
+  to{opacity:0;transform:translateY(-10px) scale(0.95)}
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
-/* Responsive */
+/* Diseño Responsivo Optimizado */
+@media (min-width:801px){
+  .app-container{flex-direction:row}
+}
 @media (max-width:800px){
-  .sidebar{display:none}
+  /* En lugar de ocultar el sidebar, lo convertimos en un header horizontal */
+  .sidebar{width:100%;display:flex;flex-direction:column;border-right:none;border-bottom:1px solid rgba(255,255,255,0.03);padding:0.5rem 1rem}
+  .brand{margin-bottom:0.5rem}
+  .sidebar nav ul{display:flex;overflow-x:auto;gap:0.5rem;padding-bottom:0.5rem;}
+  .sidebar nav li{margin:0; white-space:nowrap;}
+  .nav-btn{padding:0.4rem 0.8rem; text-align:center}
+  
   .main-content{padding:0.75rem}
   .cards{flex-direction:column}
+  .topbar {flex-direction: column; gap: 0.5rem; align-items: flex-start;}
+  .inline-form {flex-direction: column;}
 }
