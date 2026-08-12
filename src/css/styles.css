@@ -1,24 +1,80 @@
 :root{
-  --bg:#ffffff;
-  --text:#111827;
-  --accent:#0b5fff;
-  --muted:#6b7280;
+  --bg:#0f1724;
+  --panel:#0b1220;
+  --card:#0f1728;
+  --surface:#0b1226;
+  --muted:#9ca3af;
+  --text:#e6eef8;
+  --accent:#2563eb;
+  --accent-2:#60a5fa;
+  --success:#10b981;
+  --danger:#ef4444;
+  --glass: rgba(255,255,255,0.03);
 }
 *{box-sizing:border-box}
-body{font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text);margin:0;padding:0}
-.site-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;background:#0b1220;color:white}
-.site-header h1{margin:0;font-size:1.125rem}
-.panel{padding:1rem;max-width:1000px;margin:1rem auto}
-.hidden{display:none}
+html,body{height:100%}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:linear-gradient(180deg,#071020 0%, #0b1226 100%);color:var(--text);margin:0}
+.app-container{display:flex;min-height:100vh}
+.sidebar{width:220px;background:linear-gradient(180deg,var(--panel),#071022);padding:1rem;border-right:1px solid rgba(255,255,255,0.03)}
+.brand{color:var(--accent-2);font-weight:700;margin-bottom:1rem}
+.sidebar nav ul{list-style:none;padding:0;margin:0}
+.sidebar nav li{margin:0.25rem 0}
+.nav-btn{width:100%;text-align:left;padding:0.6rem 0.75rem;background:transparent;border:none;color:var(--muted);border-radius:6px;cursor:pointer}
+.nav-btn:hover{background:var(--glass);color:var(--text)}
+.nav-btn.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;box-shadow:0 4px 14px rgba(37,99,235,0.18)}
+.main-content{flex:1;padding:1rem 1.5rem;display:flex;flex-direction:column}
 .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
-.table{width:100%;border-collapse:collapse;margin-top:0.5rem}
-.table th,.table td{border:1px solid #e5e7eb;padding:0.5rem;text-align:left}
+.site-title{margin:0;font-size:1.1rem}
+.session-block{color:var(--muted);display:flex;gap:0.5rem;align-items:center}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:0.4rem 0.6rem;border-radius:6px}
+
+.panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:1rem;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6);}
+.hidden{display:none}
+
+.dashboard-grid .cards{display:flex;gap:1rem}
+.card{flex:1;padding:1rem;border-radius:10px;background:linear-gradient(180deg,#081223, #071827);box-shadow:0 6px 18px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+.card h4{margin:0;color:var(--muted);font-size:0.9rem}
+.card-value{margin-top:0.5rem;font-size:1.6rem;font-weight:700}
+
+.subpanel{margin-top:1rem;padding:1rem;border-radius:10px;background:linear-gradient(180deg,#071427,#06121a);border:1px solid rgba(255,255,255,0.03)}
+
+.table{width:100%;border-collapse:collapse;margin-top:0.75rem}
+.table th,.table td{padding:0.75rem;text-align:left;border-bottom:1px solid rgba(255,255,255,0.03)}
+.table thead th{color:var(--muted);font-size:0.85rem}
+.table tbody tr:hover{background:rgba(255,255,255,0.02)}
+
+.badge{display:inline-block;padding:0.18rem 0.5rem;border-radius:999px;font-size:0.75rem}
+.badge.admin{background:rgba(37,99,235,0.12);color:var(--accent)}
+.badge.docente{background:rgba(96,165,250,0.08);color:var(--accent-2)}
+.badge.estudiante{background:rgba(16,185,129,0.08);color:var(--success)}
+
+input,select,button{padding:0.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
+input::placeholder{color:rgba(255,255,255,0.35)}
+button{cursor:pointer}
 .inline-form{display:flex;gap:0.5rem;flex-wrap:wrap}
-input,select,button{padding:0.5rem;border:1px solid #d1d5db;border-radius:4px}
-button{background:var(--accent);color:white;border:none;cursor:pointer}
+
 .posts{list-style:none;padding:0;margin:0}
-.posts li{border:1px solid #e5e7eb;padding:0.75rem;margin-bottom:0.5rem;border-radius:6px}
-.session-info{font-size:0.875rem}
+.posts li{border-radius:8px;padding:0.75rem;margin-bottom:0.5rem;background:linear-gradient(180deg,#05121b,#071824);border:1px solid rgba(255,255,255,0.03)}
+
 .help{margin-top:0.5rem;color:var(--muted)}
-.subpanel{margin-top:1rem;padding:0.75rem;border:1px dashed #e5e7eb;border-radius:6px}
-.site-footer{padding:1rem;text-align:center;color:var(--muted);border-top:1px solid #e5e7eb;margin-top:2rem}
+
+.site-footer{padding:1rem;text-align:center;color:var(--muted);margin-top:2rem}
+
+/* Toasts */
+#toastContainer{position:fixed;right:1rem;top:1rem;z-index:1000;display:flex;flex-direction:column;gap:0.5rem}
+.toast{padding:0.75rem 1rem;border-radius:8px;color:white;min-width:220px;box-shadow:0 6px 18px rgba(2,6,23,0.6);opacity:0;transform:translateY(-6px);animation:toastIn .3s forwards}
+.toast.info{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.toast.success{background:var(--success)}
+.toast.error{background:var(--danger)}
+@keyframes toastIn{to{opacity:1;transform:none}}
+
+/* Animations */
+.fade-in{animation:fadeIn .36s ease both}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* Responsive */
+@media (max-width:800px){
+  .sidebar{display:none}
+  .main-content{padding:0.75rem}
+  .cards{flex-direction:column}
+}

@@ -7,13 +7,29 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header class="site-header">
-    <h1>Intranet Escolar</h1>
-    <div id="sessionInfo" class="session-info"></div>
-  </header>
+  <div class="app-container">
+    <aside class="sidebar" aria-label="Navegación principal">
+      <div class="brand">
+        <h2>Intranet</h2>
+      </div>
+      <nav>
+        <ul>
+          <li><button class="nav-btn active" data-target="dashboard">Dashboard</button></li>
+          <li><button class="nav-btn" data-target="userManagement">Usuarios</button></li>
+          <li><button class="nav-btn" data-target="gradesSection">Calificaciones</button></li>
+          <li><button class="nav-btn" data-target="studentGrades">Mis calificaciones</button></li>
+          <li><button class="nav-btn" data-target="boardSection">Tablón</button></li>
+        </ul>
+      </nav>
+    </aside>
 
-  <main>
-    <section id="loginSection" class="panel">
+    <main class="main-content">
+      <header class="topbar">
+        <h1 class="site-title">Intranet Escolar</h1>
+        <div class="session-block"><span id="sessionInfo" class="session-info"></span> <button id="logoutBtn" class="btn-ghost hidden">Cerrar sesión</button></div>
+      </header>
+
+      <section id="loginSection" class="panel">
       <h2>Iniciar sesión</h2>
       <form id="loginForm" aria-label="Formulario de inicio de sesión">
         <label>Usuario
@@ -35,9 +51,21 @@
     </section>
 
     <section id="dashboard" class="panel hidden">
-      <div class="topbar">
-        <div id="welcome"></div>
-        <button id="logoutBtn">Cerrar sesión</button>
+      <div class="dashboard-grid">
+        <div class="cards">
+          <div class="card">
+            <h4>Usuarios</h4>
+            <div class="card-value" id="countUsers">—</div>
+          </div>
+          <div class="card">
+            <h4>Alumnos</h4>
+            <div class="card-value" id="countStudents">—</div>
+          </div>
+          <div class="card">
+            <h4>Comunicados</h4>
+            <div class="card-value" id="countPosts">—</div>
+          </div>
+        </div>
       </div>
 
       <section id="userManagement" class="subpanel hidden">
@@ -90,10 +118,13 @@
         </form>
         <ul id="postsList" class="posts"></ul>
       </section>
-    </section>
-  </main>
+      </section>
 
-  <footer class="site-footer">Prototipo Intranet Escolar — Datos de prueba</footer>
+      <footer class="site-footer">Prototipo Intranet Escolar — Datos de prueba</footer>
+    </main>
+  </div>
+
+  <div id="toastContainer" aria-live="polite" aria-atomic="true"></div>
 
   <script src="js/auth.js" defer></script>
   <script src="js/app.js" defer></script>
